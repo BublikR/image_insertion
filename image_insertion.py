@@ -1,8 +1,8 @@
 import numpy as np
 import cv2
-input_img = cv2.imread('input2.jpg')
+input_img = cv2.imread('image/input.png')
 Yo, Xo, _ = input_img.shape
-insert_img = cv2.imread('insert.jpg')
+insert_img = cv2.imread('image/insert.jpg')
 Y, X, _ = insert_img.shape
 
 # color space change
@@ -12,11 +12,12 @@ lower_green = np.array([50, 50, 50])
 upper_green = np.array([70, 255, 255])
 # figure selection
 mask = cv2.inRange(hsv, lower_green, upper_green)
+# contour selection
 edged = cv2.Canny(mask, 1000, 1500)
-
+# contour closure
 kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
 closed = cv2.morphologyEx(edged, cv2.MORPH_CLOSE, kernel)
-
+# find contours
 cnts = cv2.findContours(closed.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
 for c in cnts:
     peri = cv2.arcLength(c, True)
@@ -25,6 +26,7 @@ for c in cnts:
         pts1 = np.float32([[0, 0],[X, 0],[0, Y],[X, Y]])
         pts2 = np.array([i[0] for i in approx])
         pts2 = np.float32(pts2)
+        pts2 = pts2 +1 
         pts2[0], pts2[1] = pts2[1].copy(), pts2[0].copy()
 
         if pts2[0][1] == np.min(np.min(pts2, axis=1)):
@@ -51,8 +53,8 @@ for c in cnts:
         input_img[np.all(input_img == [0, 0, 0, 255], axis=2)] = [0, 0, 0, 0]
 
         added_image = cv2.addWeighted(input_img, 1, dst, 1, 0)
-
-cv2.imshow('result', added_image)
+      
+cv2.imwrite('image/result.png', added_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
