@@ -2,11 +2,11 @@
 
 ## For example:
 
-The image to be inserted:
+<p>The image to be inserted:</p>
 ![insert](image/insert.jpg)
 
-The image into which is inserted:
+<p>The image into which is inserted:</p>
 ![input](image/input.png)
 
-Resulting image:
+<p>Resulting image:</p>
 ![result](image/result.png)
