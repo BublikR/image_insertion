@@ -54,7 +54,11 @@ for c in cnts:
 
         added_image = cv2.addWeighted(input_img, 1, dst, 1, 0)
       
-cv2.imwrite('image/result.png', added_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
 
+def main():
+    cv2.imwrite('image/result.png', added_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main()
