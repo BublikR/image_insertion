@@ -60,7 +60,9 @@ def image_insertion(img_to_be_inserted: str, img_into_which_is_inserted: str, im
     cv2.imwrite(img_result, added_image)      
 
 def main():
-    image_insertion(sys.argv[1], sys.argv[2])
-
+    try:
+        image_insertion(sys.argv[1], sys.argv[2])
+    except IndexError as e:
+        print('Error: Must be entered path to image files.')
 if __name__ == '__main__':
     main()
